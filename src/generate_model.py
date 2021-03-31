@@ -32,10 +32,8 @@ def generate_model(
   feature_column_names = columns_to_include.copy()
   feature_column_names.remove(label_name)
 
-  # Create and compile the model's topography.
   model = create_model(learning_rate, feature_column_names, neural_network_structure, dropout_rate)
 
-  # Train the model on the training set.
   epochs, rmse = train_model(model, training_df, epochs, batch_size, label_name)
 
   if output_loss_curve:

@@ -1,7 +1,6 @@
 from generate_model import generate_model
 from get_model_path import get_model_path
 
-# Model variables
 learning_rate=0.001
 epochs=100
 batch_size=50

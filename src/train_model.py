@@ -9,7 +9,6 @@ def train_model(model, dataset, epochs, batch_size, label_name):
 
   epochs = history.epoch
 
-  # Isolate the mean absolute error for each epoch.
   hist = pd.DataFrame(history.history)
   rmse = hist["root_mean_squared_error"]
 

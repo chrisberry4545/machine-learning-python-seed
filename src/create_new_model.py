@@ -10,6 +10,7 @@ output_json_results=False
 output_loss_curve=True
 output_results_plot=True
 save_model=True
+data_url='./data/california_housing.csv'
 
 label_name = 'median_house_value'
 main_feature = 'median_income'
@@ -26,6 +27,7 @@ columns_to_include = [
             ]
 
 model = generate_model(
+  data_url=data_url,
   label_name=label_name,
   main_feature=main_feature,
   columns_to_include=columns_to_include,

@@ -9,6 +9,7 @@ import pandas as pd
 from get_prediction import get_prediction
 
 def generate_model(
+  data_url,
   label_name,
   main_feature,
   columns_to_include,
@@ -21,7 +22,7 @@ def generate_model(
   output_loss_curve,
   output_results_plot
 ):
-  training_df, test_df = get_data()
+  training_df, test_df = get_data(data_url)
   columns_to_remove = []
   # Remove other columns
   for col in training_df.columns:

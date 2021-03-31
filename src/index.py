@@ -2,7 +2,7 @@ from generate_model import generate_model
 
 # Model variables
 learning_rate=0.001
-epochs=100
+epochs=10
 batch_size=50
 neural_network_structure=[12, 10]
 dropout_rate=0
@@ -11,7 +11,7 @@ output_loss_curve=True
 output_results_plot=True
 
 label_name = 'median_house_value'
-main_feature = 'total_bedrooms'
+main_feature = 'median_income'
 columns_to_include = [
                       label_name,
                       'longitude',

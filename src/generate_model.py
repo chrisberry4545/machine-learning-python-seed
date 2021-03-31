@@ -42,8 +42,6 @@ def generate_model(
     plot_loss_curve(epochs, rmse)
 
   predictions = get_prediction(model, test_df)
-  if output_results_plot:
-    plot_model(predictions, main_feature, label_name, test_df)
 
   normalized_predictions_df = test_df.copy()
   normalized_predictions_df[label_name] = predictions
@@ -55,12 +53,15 @@ def generate_model(
   de_normalized_predictions = pd.DataFrame(de_normalized_predictions_features, columns=normalized_predictions_df.columns)
 
   de_normalized_main_feature_array = de_normalized_input[main_feature].to_numpy()
-  de_normalized_actual_results = de_normalized_input[label_name].to_numpy()
-  de_normalized_predictions = de_normalized_predictions[label_name].to_numpy()
+  de_normalized_real_values_array = de_normalized_input[label_name].to_numpy()
+  de_normalized_predictions_array = de_normalized_predictions[label_name].to_numpy()
+
+  if output_results_plot:
+    plot_model(de_normalized_predictions, main_feature, label_name)
 
   test_features = {name:np.array(value) for name, value in test_df.items()}
   label_res = test_features.pop(label_name)
   evaluation = model.evaluate(test_features, label_res)
   print('model evaluation:', evaluation)
 
-  evaluate_results(de_normalized_main_feature_array, de_normalized_predictions, de_normalized_actual_results, output_json_results)
+  evaluate_results(de_normalized_main_feature_array, de_normalized_predictions_array, de_normalized_real_values_array, output_json_results)

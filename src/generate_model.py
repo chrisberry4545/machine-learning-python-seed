@@ -65,3 +65,5 @@ def generate_model(
   print('model evaluation:', evaluation)
 
   evaluate_results(de_normalized_main_feature_array, de_normalized_predictions_array, de_normalized_real_values_array, output_json_results)
+
+  return model

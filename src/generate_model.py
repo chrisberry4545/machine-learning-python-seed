@@ -21,7 +21,7 @@ def generate_model(
   output_loss_curve,
   output_results_plot
 ):
-  training_df, test_df, scaler = get_data()
+  training_df, test_df = get_data()
   columns_to_remove = []
   # Remove other columns
   for col in training_df.columns:
@@ -43,27 +43,23 @@ def generate_model(
 
   predictions = get_prediction(model, test_df)
 
-  normalized_predictions_df = test_df.copy()
-  normalized_predictions_df[label_name] = predictions
+  predictions_df = test_df.copy(deep=True)
+  predictions_df[label_name] = predictions
 
-  de_normalized_input_features = scaler.inverse_transform(test_df)
-  de_normalized_input = pd.DataFrame(de_normalized_input_features, columns=test_df.columns)
+  predictions_df = predictions_df
 
-  de_normalized_predictions_features = scaler.inverse_transform(normalized_predictions_df)
-  de_normalized_predictions = pd.DataFrame(de_normalized_predictions_features, columns=normalized_predictions_df.columns)
-
-  de_normalized_main_feature_array = de_normalized_input[main_feature].to_numpy()
-  de_normalized_real_values_array = de_normalized_input[label_name].to_numpy()
-  de_normalized_predictions_array = de_normalized_predictions[label_name].to_numpy()
+  main_feature_array = test_df[main_feature].to_numpy()
+  real_values_array = test_df[label_name].to_numpy()
+  predictions_array = predictions_df[label_name].to_numpy()
 
   if output_results_plot:
-    plot_model(de_normalized_predictions, main_feature, label_name)
+    plot_model(predictions_df, main_feature, label_name)
 
   test_features = {name:np.array(value) for name, value in test_df.items()}
   label_res = test_features.pop(label_name)
   evaluation = model.evaluate(test_features, label_res)
   print('model evaluation:', evaluation)
 
-  evaluate_results(de_normalized_main_feature_array, de_normalized_predictions_array, de_normalized_real_values_array, output_json_results)
+  evaluate_results(main_feature_array, predictions_array, real_values_array, output_json_results)
 
   return model

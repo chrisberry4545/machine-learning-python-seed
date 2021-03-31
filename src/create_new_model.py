@@ -1,8 +1,9 @@
 from generate_model import generate_model
+from get_model_path import get_model_path
 
 # Model variables
 learning_rate=0.001
-epochs=10
+epochs=100
 batch_size=50
 neural_network_structure=[12, 10]
 dropout_rate=0
@@ -40,4 +41,4 @@ model = generate_model(
 )
 
 if save_model:
-  model.save('./models/model')
+  model.save(get_model_path())

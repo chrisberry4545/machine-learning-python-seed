@@ -11,6 +11,7 @@ def create_model(my_learning_rate, feature_column_names, neural_network_structur
 
   model = tf.keras.models.Sequential()
   model.add(feature_layer)
+  model.add(layers.BatchNormalization())
 
   index = 0
   for number_of_nodes in neural_network_structure:
